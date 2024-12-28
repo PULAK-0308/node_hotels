@@ -103,4 +103,5 @@ router.delete('/:id',async(req,res)=>{
     }
 })
 
+//exporting router
 module.exports=router;
