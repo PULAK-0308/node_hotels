@@ -1,0 +1,9 @@
+//json string to object
+const jsonstring='{"name":"john","age":30,"city":"new york"}';
+const jsonobject=JSON.parse(jsonstring);
+console.log(jsonobject.name);
+
+//json object to string
+const jsonobject1={name:"john",age:30};
+const jsonstring1=JSON.stringify(jsonobject1);
+console.log(jsonstring);

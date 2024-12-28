@@ -1,0 +1,142 @@
+const express = require('express')
+const app = express()
+const db=require('./db')
+
+const bodyParse=require('body-parser');
+app.use(bodyParse.json());//body parser automatically processes data and store data in req.body
+
+const Person=require('./models/Person')
+const MenuItem=require('./models/MenuItem')
+
+//this is menu card vala chiz
+app.get('/', function (req, res) {
+  res.send('welcome to my hotel , how can i help you ?')
+})//address ke bad / enter karta h to response dega hello world
+
+//post method to add person
+app.post('/person',async(req,res)=>{
+
+    try{
+        const data=req.body;//assuming request body contains Person data
+
+        //create new Person document using mongoose model
+        const newPerson=new Person(data);
+
+        //save newPerson to database
+        const response=await newPerson.save();
+        console.log('data saved');
+        res.status(200).json(response);
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({error:'internal server error'});
+    }
+})
+
+//put method to update menu items
+app.put('/person',async(req,res)=>{
+    try{
+        const data=await Person.updateOne({name:"Alice"},{$set:{age:22}});
+        console.log('data updated');
+        res.status(200).json(data);
+    }catch(err)
+    {
+        console.log(err);
+        res.status(500).json({error:'internal server error'});
+    }
+})
+
+//get method to get Person
+app.get('/person',async(req,res)=>{
+    try{
+        const data=await Person.find();
+        console.log('data fetched');
+        res.status(200).json(data);
+    }catch(err)
+    {
+        console.log(err);
+        res.status(500).json({error:'internal server error'});
+    }
+})
+
+//post method to add menu items
+app.post('/menu',async(req,res)=>{
+
+    try{
+        const data=req.body;//assuming request body contains Person data
+
+        //create new Person document using mongoose model
+        const newmenuItem=new MenuItem(data);
+
+        //save newPerson to database
+        const response=await newmenuItem.save();
+        console.log('menu item saved');
+        res.status(200).json(response);
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({error:'internal server error'});
+    }
+})
+
+//get method to fetch menu items
+app.get('/menu',async(req,res)=>{
+    try{
+        const data=await MenuItem.find();
+        console.log('data fetched');
+        res.status(200).json(data);
+    }catch(err)
+    {
+        console.log(err);
+        res.status(500).json({error:'internal server error'});
+    }
+})
+
+//put method to update menu items
+app.put('/menu',async(req,res)=>{
+    try{
+        const data=await MenuItem.updateOne({name:"spicy paneer"},{$set:{ingredients:["paneer","red gravy","spices","milk"]}});
+        console.log('data updated');
+        res.status(200).json(data);
+    }catch(err)
+    {
+        console.log(err);
+        res.status(500).json({error:'internal server error'});
+    }
+})
+
+//parameterized calls
+//jaise localhost:3000/person/chef dala to jo chef h vo hi ayenge
+app.get('/person/:workType',async(req,res)=>{
+    try{
+
+        const workType=req.params.workType;//extract work type from url parameter
+        if(workType=="chef" || workType=="waiter" || workType=="manager")
+        {
+            const data=await Person.find({work:workType});
+            console.log('data fetched');
+            res.status(200).json(data);
+        }
+        else{
+            res.status(400).json({error:'invalid work type'})
+        }
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({error:'internal server error'});
+    }
+})
+
+app.listen(3000,()=>{
+    console.log("listening on port 3000");
+})//port number
+
+
+
+
+
+
+
+
+
+

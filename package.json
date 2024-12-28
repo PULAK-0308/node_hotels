@@ -1,0 +1,20 @@
+{
+  "name": "node-js-tut",
+  "version": "1.0.0",
+  "description": "it is node js tutorial",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "prince",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^8.9.2",
+    "nodemon": "^3.1.7",
+    "prompt-sync": "^4.2.0"
+  }
+}
