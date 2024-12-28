@@ -1,8 +1,8 @@
 #ignore node_modules directory
 node_modules/
 stepbystepprocess
-use of modules fs and os
+useofmodulesfsandos
 greetings.txt
-different ways of functions
+differentwaysoffunctions
 .env
 
